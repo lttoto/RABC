@@ -1,5 +1,6 @@
 package com.lt.common;
 
+import com.lt.exception.ParamException;
 import com.lt.exception.PermissionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -21,7 +22,7 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
 
         //.json 接口请求,.page 页面请求
         if (url.endsWith(".json")) {
-            if(e instanceof PermissionException) {
+            if(e instanceof PermissionException || e instanceof ParamException) {
                 JsonData result = JsonData.fail(e.getMessage());
                 mv = new ModelAndView("jsonView",result.toMap());
             }else {
