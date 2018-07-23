@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -28,6 +29,11 @@ public class SysDeptController {
     @Autowired
     private SysTreeService sysTreeService;
 
+    @RequestMapping("/dept.page")
+    public ModelAndView page() {
+        return new ModelAndView("dept");
+    }
+
     @RequestMapping("/save.json")
     @ResponseBody
     public JsonData saveDept(DeptParam param) {
@@ -40,5 +46,12 @@ public class SysDeptController {
     public JsonData tree() {
         List<DeptLevelDto> dtos = sysTreeService.deptTree();
         return JsonData.success(dtos);
+    }
+
+    @RequestMapping("/update.json")
+    @ResponseBody
+    public JsonData updateDept(DeptParam param) {
+        sysDeptService.update(param);
+        return JsonData.success();
     }
 }
