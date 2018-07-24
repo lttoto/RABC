@@ -33,6 +33,12 @@
     </init-param>
   </filter>
 
+  <!--请求拦截器-->
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.lt.filter.LoginFilter</filter-class>
+  </filter>
+
   <filter-mapping>
     <filter-name>encoding</filter-name>
     <url-pattern>/*</url-pattern>
@@ -44,9 +50,21 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/sys/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+
+
 
   <!--spring mvc 配置-->
   <servlet>

@@ -29,10 +29,7 @@ public class HttpIntercaptor extends HandlerInterceptorAdapter{
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        String url = request.getRequestURI().toString();
-        long start  = (Long)request.getAttribute(START_TIME);
-        long end = System.currentTimeMillis();
-        log.info("request finish url:{},cost:{}",url, end - start);
+        this.removeThreadLocalInfo();
     }
 
     @Override
@@ -41,5 +38,11 @@ public class HttpIntercaptor extends HandlerInterceptorAdapter{
         long start  = (Long)request.getAttribute(START_TIME);
         long end = System.currentTimeMillis();
         log.info("request finish url:{},cost:{}",url, end - start);
+
+        this.removeThreadLocalInfo();
+    }
+
+    public void removeThreadLocalInfo() {
+        RequestHolder.remove();
     }
 }
